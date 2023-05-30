@@ -2,9 +2,7 @@ package org.example.controller;
 
 import org.example.dto.AuthoritiesDTO;
 import org.example.entiry.Authorities;
-import org.example.entiry.Owner;
 import org.example.services.AuthoritiesService;
-import org.example.services.OwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

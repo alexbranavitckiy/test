@@ -6,8 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.checkerframework.checker.units.qual.A;
-import org.example.Audit.AuditTrailListener;
+import org.example.audit.AuditTrailListener;
 
 import java.util.List;
 

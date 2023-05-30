@@ -3,6 +3,7 @@ package org.example.entiry;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.example.audit.AuditTrailListener;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity(name = "Authorities")
 @AllArgsConstructor
+@EntityListeners(AuditTrailListener.class)
 public class Authorities {
 
     @Id
@@ -34,4 +36,5 @@ public class Authorities {
     public Authorities(String code) {
         this.code = code;
     }
+
 }

@@ -1,4 +1,4 @@
-package org.example.Audit;
+package org.example.audit;
 
 import jakarta.persistence.*;
 import org.example.entiry.Owner;

@@ -1,12 +1,9 @@
 package org.example.dto;
 
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.example.Audit.AuditTrailListener;
-import org.example.entiry.Authorities;
 import org.example.entiry.Owner;
 import org.modelmapper.ModelMapper;
 

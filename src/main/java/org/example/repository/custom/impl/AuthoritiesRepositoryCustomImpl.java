@@ -1,9 +1,7 @@
 package org.example.repository.custom.impl;
 
 
-import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.Query;
 import jakarta.persistence.criteria.*;
 import jakarta.transaction.Transactional;
 import org.example.entiry.Authorities;
@@ -13,7 +11,6 @@ import org.hibernate.Session;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Queue;
 
 @Component
 public class AuthoritiesRepositoryCustomImpl implements AuthoritiesRepositoryCustom {
@@ -23,7 +20,7 @@ public class AuthoritiesRepositoryCustomImpl implements AuthoritiesRepositoryCus
     private Session entityManager;
 
 
-    public List<Authorities> getAll() {
+    public List<Authorities> getAll() {//todo test->remove
 
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 
@@ -43,9 +40,9 @@ public class AuthoritiesRepositoryCustomImpl implements AuthoritiesRepositoryCus
     }
 
     @Transactional
-    public void delete(Authorities authorities) {
+    public void delete(Authorities authorities) {//todo test->remove
 
-        Authorities authorities1=  entityManager.get(Authorities.class,authorities.getId());
+        Authorities authorities1 = entityManager.get(Authorities.class, authorities.getId());
 
         entityManager.remove(authorities1);
 

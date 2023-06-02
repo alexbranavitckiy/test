@@ -2,7 +2,7 @@ package org.example.controller;
 
 
 import org.example.dto.SummerDTO;
-import org.example.entiry.Summer;
+import org.example.label.ErrorLabel;
 import org.example.services.SummerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +13,7 @@ import java.util.List;
 
 
 @RestController
+@ErrorLabel
 @RequestMapping("/summer")
 public class SummerController {
 

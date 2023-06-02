@@ -2,6 +2,7 @@ package org.example.controller;
 
 import org.example.dto.AuthoritiesDTO;
 import org.example.entiry.Authorities;
+import org.example.label.ErrorLabel;
 import org.example.services.AuthoritiesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/authorities")
+@ErrorLabel
 public class AuthoritiesController {
 
 

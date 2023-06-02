@@ -20,20 +20,20 @@ public class SummerServiceImpl implements SummerService {
     @Autowired
     private SummerRepository summerRepository;
 
-    public List<SummerDTO> getAll() {//TODO
+    public List<SummerDTO> getAll() {
         return summerRepository.findAll().stream().map(SummerDTO::fromSummerDTO).collect(Collectors.toList());
     }
 
-    public SummerDTO add(SummerDTO client) {//TODO
+    public SummerDTO add(SummerDTO client) {
         return SummerDTO.fromSummerDTO(summerRepository.save(client.toSummerDTO()));
     }
 
-    public boolean remove(SummerDTO client) {//TODO
+    public boolean remove(SummerDTO client) {
         summerRepository.delete(client.toSummerDTO());
         return true;
     }
 
-    public SummerDTO update(SummerDTO client) {//TODO
+    public SummerDTO update(SummerDTO client) {
         summerRepository.save(client.toSummerDTO());
         return client;
     }

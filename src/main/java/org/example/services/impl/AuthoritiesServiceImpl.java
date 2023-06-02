@@ -24,16 +24,16 @@ public class AuthoritiesServiceImpl implements AuthoritiesService {
         return authoritiesRepository.getAll();
     }
 
-    public AuthoritiesDTO add(AuthoritiesDTO client) {//TODO
+    public AuthoritiesDTO add(AuthoritiesDTO client) {
         return AuthoritiesDTO.fromAuthoritiesDTO(authoritiesRepository.save(client.tAuthoritiesDTO()));
     }
 
-    public boolean remove(AuthoritiesDTO authorities) {//TODO
+    public boolean remove(AuthoritiesDTO authorities) {
         ((AuthoritiesRepositoryCustom) authoritiesRepository).delete(authorities.tAuthoritiesDTO());
         return true;
     }
 
-    public AuthoritiesDTO update(AuthoritiesDTO client) {//TODO
+    public AuthoritiesDTO update(AuthoritiesDTO client) {
         authoritiesRepository.save(client.tAuthoritiesDTO());
         return client;
     }

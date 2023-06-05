@@ -1,6 +1,5 @@
 package org.example.entiry;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 import org.example.audit.AuditTrailListener;

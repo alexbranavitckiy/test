@@ -1,7 +1,5 @@
-package org.example.services.impl;
+package org.example.services.persistsimpl;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import org.example.dto.AuthoritiesDTO;
 import org.example.entiry.Authorities;
 import org.example.repository.AuthoritiesRepository;
@@ -11,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class AuthoritiesServiceImpl implements AuthoritiesService {

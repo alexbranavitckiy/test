@@ -43,4 +43,8 @@ public class Owner {
     @ManyToMany(mappedBy = "owners")
     List<Authorities> authorities;
 
+    @OneToMany(mappedBy = "owner")
+    List<Message> messages;
+
+
 }

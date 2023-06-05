@@ -1,11 +1,7 @@
-package org.example.services.impl;
+package org.example.services.persistsimpl;
 
 import org.example.dto.SummerDTO;
-import org.example.entiry.Owner;
-import org.example.entiry.Summer;
-import org.example.repository.OwnerRepository;
 import org.example.repository.SummerRepository;
-import org.example.services.OwnerService;
 import org.example.services.SummerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,7 @@
 package org.example.controller;
 
 import org.example.dto.OwnerDTO;
+import org.example.entiry.Message;
 import org.example.label.ErrorLabel;
 import org.example.services.OwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,12 @@ public class OwnerController {
     @PostMapping("add")
     public ResponseEntity<OwnerDTO> add(@RequestBody OwnerDTO client) {
         return new ResponseEntity<>(clientService.add(client), HttpStatus.CREATED);
+    }
+
+
+    @PostMapping("message")
+    public ResponseEntity<Boolean> add(@RequestBody Message client) {
+        return new ResponseEntity<>(clientService.setMessage(client), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/remove")

@@ -19,22 +19,23 @@ public class OwnerServicesImpl implements OwnerService {
     private OwnerRepository clientRepository;
 
 
-    public List<OwnerDTO> getAll() {//TODO
-        return clientRepository.findAll().stream().map(OwnerDTO::fromOwnerDTO).collect(Collectors.toList());
+    @Override
+    public List<OwnerDTO> getAll() {
+        return null;
     }
 
-    public OwnerDTO add(OwnerDTO client) {//TODO
-        return OwnerDTO.fromOwnerDTO(clientRepository.save(client.toOwner()));
+    @Override
+    public OwnerDTO add(OwnerDTO client) {
+        return null;
     }
 
-    public boolean remove(OwnerDTO client) {//TODO
-        clientRepository.delete(client.toOwner());
-        return true;
+    @Override
+    public boolean remove(OwnerDTO client) {
+        return false;
     }
 
-    public OwnerDTO update(OwnerDTO client) {//TODO
-        clientRepository.save(client.toOwner());
-        return client;
+    @Override
+    public OwnerDTO update(OwnerDTO client) {
+        return null;
     }
-
 }

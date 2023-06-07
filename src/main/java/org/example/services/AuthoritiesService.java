@@ -9,10 +9,10 @@ import java.util.List;
 public interface AuthoritiesService {
 
 
-    List<Authorities> getAll() ;
-    AuthoritiesDTO add(AuthoritiesDTO client);
-    boolean remove(AuthoritiesDTO client);
-    AuthoritiesDTO update(AuthoritiesDTO client);
+    List<AuthoritiesDTO> getAll() ;
+    AuthoritiesDTO add(String code);
+    boolean remove(Long id,String code);
+    AuthoritiesDTO update(Long id,String code);
 
 
 

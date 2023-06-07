@@ -26,15 +26,5 @@ public class OwnerDTO {
 
     private List<AuthoritiesDTO> authorities;
 
-    public static OwnerDTO fromOwnerDTO(Owner authoritiesPerson) {
-        ModelMapper modelMapper = new ModelMapper();
-        return modelMapper.map(authoritiesPerson, OwnerDTO.class);
-    }
-
-    public Owner toOwner() {
-        ModelMapper modelMapper = new ModelMapper();
-        return modelMapper.map(this, Owner.class);
-    }
-
 
 }

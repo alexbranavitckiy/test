@@ -9,7 +9,6 @@ import java.util.List;
 
 @Getter
 @Setter
-@Data
 @NoArgsConstructor
 @Entity(name = "Authorities")
 @AllArgsConstructor
@@ -22,6 +21,9 @@ public class Authorities {
 
     @Column(name = "code")
     private String code;
+
+    @Column(name = "close", columnDefinition = "boolean default false")
+    private boolean close;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinColumn

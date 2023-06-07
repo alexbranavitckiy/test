@@ -1,11 +1,8 @@
 package org.example.services.impl;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import org.example.dto.AuthoritiesDTO;
-import org.example.entiry.Authorities;
+import org.example.mapper.MapperServiceHolder;
 import org.example.repository.AuthoritiesRepository;
-import org.example.repository.custom.AuthoritiesRepositoryCustom;
 import org.example.services.AuthoritiesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,22 +17,28 @@ public class AuthoritiesServiceImpl implements AuthoritiesService {
     @Autowired
     private AuthoritiesRepository authoritiesRepository;
 
-    public List<Authorities> getAll() {
-        return authoritiesRepository.getAll();
+    @Autowired
+    private MapperServiceHolder mapperServiceHolder;
+
+    @Override
+    public List<AuthoritiesDTO> getAll() {
+        var mapper=mapperServiceHolder.getMapperService("Authorities");
+        return authoritiesRepository.getAll().stream().map(x ->mapper.toDTO(x)).collect(Collectors.toList());
     }
 
-    public AuthoritiesDTO add(AuthoritiesDTO client) {//TODO
-        return AuthoritiesDTO.fromAuthoritiesDTO(authoritiesRepository.save(client.tAuthoritiesDTO()));
+    @Override
+    public AuthoritiesDTO add(String code) {
+        return null;
     }
 
-    public boolean remove(AuthoritiesDTO authorities) {//TODO
-        ((AuthoritiesRepositoryCustom) authoritiesRepository).delete(authorities.tAuthoritiesDTO());
-        return true;
+    @Override
+    public boolean remove(Long id, String code) {
+        return false;
     }
 
-    public AuthoritiesDTO update(AuthoritiesDTO client) {//TODO
-        authoritiesRepository.save(client.tAuthoritiesDTO());
-        return client;
+    @Override
+    public AuthoritiesDTO update(Long id, String code) {
+        return null;
     }
 
 }

@@ -1,7 +1,6 @@
 package org.example.controller;
 
 import org.example.dto.AuthoritiesDTO;
-import org.example.entiry.Authorities;
 import org.example.label.ErrorLabel;
 import org.example.services.AuthoritiesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
+@ErrorLabel
 @RestController
 @RequestMapping("/authorities")
-@ErrorLabel
 public class AuthoritiesController {
 
 
@@ -22,31 +21,25 @@ public class AuthoritiesController {
     private AuthoritiesService authoritiesService;
 
 
-    @GetMapping("/test")
-    public ResponseEntity<String> testOk() {
-        return new ResponseEntity<>("testOk", HttpStatus.OK);
-    }
-
     @GetMapping("/getAll")
-    public ResponseEntity<List<Authorities>> getAll() {
+    public ResponseEntity<List<AuthoritiesDTO>> getAll() {
         return new ResponseEntity<>(authoritiesService.getAll(), HttpStatus.OK);
     }
 
-
     @PostMapping("add")
-    public ResponseEntity<AuthoritiesDTO> add(@RequestBody AuthoritiesDTO client) {
-        return new ResponseEntity<>(authoritiesService.add(client), HttpStatus.CREATED);
+    public ResponseEntity<AuthoritiesDTO> add(@RequestBody String CODE) {
+        return new ResponseEntity<>(authoritiesService.add(CODE), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/remove")
-    public ResponseEntity<Boolean> remove(@RequestBody AuthoritiesDTO client) {
-        return new ResponseEntity<>(authoritiesService.remove(client), HttpStatus.OK);
+    public ResponseEntity<Boolean> remove(@RequestParam Long id,String code) {
+        return new ResponseEntity<>(authoritiesService.remove(id, code), HttpStatus.OK);
     }
 
 
     @PostMapping("/update")
-    public ResponseEntity<AuthoritiesDTO> update(@RequestBody AuthoritiesDTO client) {
-        return new ResponseEntity<>(authoritiesService.update(client), HttpStatus.CREATED);
+    public ResponseEntity<AuthoritiesDTO> update(@RequestParam Long id, @RequestParam String code) {
+        return new ResponseEntity<>(authoritiesService.update(id,code), HttpStatus.CREATED);
     }
 
 }

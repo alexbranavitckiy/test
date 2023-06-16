@@ -1,15 +1,13 @@
 package org.example.mapper.impl;
 
 
-import org.example.dto.AuthoritiesDTO;
 import org.example.dto.OwnerDTO;
-import org.example.entiry.Authorities;
 import org.example.entiry.Owner;
 import org.example.mapper.MapperService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-@Service("Owner")
+@Service
 public class OwnerModelMapperServiceImpl implements MapperService<Owner, OwnerDTO> {
 
     private final ModelMapper modelMapper;

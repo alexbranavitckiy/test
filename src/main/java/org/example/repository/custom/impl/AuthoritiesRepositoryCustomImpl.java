@@ -1,13 +1,16 @@
 package org.example.repository.custom.impl;
 
-
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.*;
 import jakarta.transaction.Transactional;
 import org.example.entiry.Authorities;
+import org.example.entiry.Authorities_;
+import org.example.entiry.Owner;
+import org.example.error.NotFoundError;
 import org.example.repository.custom.AuthoritiesRepositoryCustom;
-import org.hibernate.Session;
 import org.springframework.stereotype.Component;
+import org.webjars.NotFoundException;
 
 import java.util.List;
 
@@ -16,36 +19,53 @@ public class AuthoritiesRepositoryCustomImpl implements AuthoritiesRepositoryCus
 
 
     @PersistenceContext
-    private Session entityManager;
+    private EntityManager entityManager;
 
 
-    public List<Authorities> getAll() {//todo test->remove
+    @Override
+    public Authorities update(Authorities entity) {
+        return null;
+    }
+
+    @Override
+    @Transactional
+    public Authorities addAuthorities(Authorities code) {
+        entityManager.persist(code);
+        return code;
+    }
+
+    @Override
+    @Transactional
+    public Authorities updateCodeAndCloseValueIfExistId(Authorities build) throws NotFoundError {
 
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 
         CriteriaQuery<Authorities> cq = cb.createQuery(Authorities.class);
 
         Root<Authorities> root = cq.from(Authorities.class);
-//
-//        Selection[] authoritiesSelection = {root.get(Authorities_.CODE).alias(Authorities_.CODE)
-//                , root.get(Authorities_.id).alias(Authorities_.ID)};
-//
-//        ParameterExpression<String> parameterExpression = cb.parameter(String.class, "name");
-//
-//        cq.select(cb.construct(Authorities.class, authoritiesSelection)).where(cb.like(root.get(Authorities_.CODE), parameterExpression));
 
-        return entityManager.createQuery(cq).setParameter("name", "%").getResultList();
+        cq.select(root);
 
+        cq.where(cb.equal(root.get(Authorities_.ID),
+                build.getId()));
+
+        cq.orderBy(cb.desc(root.get("id")));
+
+        List<Authorities> resultList = entityManager.createQuery(cq).getResultList();
+
+        if (!resultList.isEmpty()) {
+            entityManager.merge(build);
+            entityManager.flush();
+        } else {
+            throw new NotFoundError("Entity not found");
+        }
+
+        return build;
     }
 
-    @Transactional
-    public void delete(Authorities authorities) {//todo test->remove
-
-        Authorities authorities1 = entityManager.get(Authorities.class, authorities.getId());
-
-        entityManager.remove(authorities1);
-
-
+    @Override
+    public Authorities updateCodeAndCloseValueIfExistIdQ(Authorities build) throws NotFoundError {
+        return null;
     }
 
 }

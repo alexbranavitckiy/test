@@ -1,15 +1,17 @@
 package org.example.repository.custom;
 
 import org.example.entiry.Authorities;
-
-import java.util.List;
+import org.example.error.NotFoundError;
 
 public interface AuthoritiesRepositoryCustom {
 
+    Authorities update(Authorities entity);
 
-     List<Authorities> getAll();
+    Authorities addAuthorities(Authorities code);
 
-    void delete(Authorities entity);
+    Authorities updateCodeAndCloseValueIfExistId(Authorities build) throws NotFoundError;
 
+
+    Authorities updateCodeAndCloseValueIfExistIdQ(Authorities build) throws NotFoundError;
 
 }

@@ -19,5 +19,4 @@ public class SummerDTO {
 
     private String summer;
 
-
 }

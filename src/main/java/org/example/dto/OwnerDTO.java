@@ -24,6 +24,7 @@ public class OwnerDTO {
 
     private String phone;
 
+    @ToString.Include
     private List<AuthoritiesDTO> authorities;
 
 

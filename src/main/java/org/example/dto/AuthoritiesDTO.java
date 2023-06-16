@@ -6,6 +6,7 @@ import lombok.*;
 @Builder
 @ToString
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor
 public class AuthoritiesDTO {
 
@@ -14,8 +15,5 @@ public class AuthoritiesDTO {
     private String code;
 
     private boolean close;
-
-
-
 
 }

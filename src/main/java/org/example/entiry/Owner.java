@@ -2,24 +2,24 @@ package org.example.entiry;
 
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import org.example.audit.AuditTrailListener;
+import lombok.*;
 
 import java.util.List;
 
 @Getter
 @ToString
+@Builder
 @Setter
 @NoArgsConstructor
 @Entity(name = "Owner")
-@EntityListeners(AuditTrailListener.class)
-public class Owner {
+@AllArgsConstructor
+public class Owner  {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "pet_seq",
+            sequenceName = "pet_sequence",
+            initialValue = 2000, allocationSize = 20)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pet_seq")
     private Long id;
 
     @Column(name = "first_name", length = 200, nullable = false)
@@ -32,11 +32,11 @@ public class Owner {
     private String phone;
 
     @ToString.Exclude
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "client",cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "client")
     private List<Summer> reporters;
 
     @ToString.Exclude
-    @ManyToMany(mappedBy = "owners",cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "owners")
     List<Authorities> authorities;
 
 }

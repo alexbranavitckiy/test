@@ -8,11 +8,7 @@ import org.modelmapper.ModelMapper;
 
 public interface MapperService<En,DTO> {
 
-
-
-
     DTO toDTO(En authorities) ;
-
 
      En toEntity(DTO authoritiesDTO) ;
 

@@ -8,7 +8,9 @@ import org.example.audit.AuditTrailListener;
 import java.util.List;
 
 @Getter
+@Builder
 @Setter
+@ToString
 @NoArgsConstructor
 @Entity(name = "Authorities")
 @AllArgsConstructor
@@ -16,27 +18,22 @@ import java.util.List;
 public class Authorities {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "pet_seq",
+            sequenceName = "pet_sequence",
+            initialValue = 2000, allocationSize = 20)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pet_seq")
     private Long id;
-
-    @Column(name = "code")
-    private String code;
 
     @Column(name = "close", columnDefinition = "boolean default false")
     private boolean close;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @Column(name = "code")
+    private String code;
+
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn
     @ToString.Exclude
     List<Owner> owners;
 
-    public Authorities(Long id, String code) {
-        this.id = id;
-        this.code = code;
-    }
-
-    public Authorities(String code) {
-        this.code = code;
-    }
 
 }

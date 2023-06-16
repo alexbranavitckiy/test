@@ -1,32 +1,36 @@
 package org.example.audit;
 
 import jakarta.persistence.*;
-import org.example.entiry.Owner;
+import lombok.extern.slf4j.Slf4j;
+import org.example.entiry.Authorities;
+import org.springframework.stereotype.Component;
 
+@Slf4j
+@Component
 public class AuditTrailListener {
 
 
     @PrePersist
     @PreUpdate
     @PreRemove
-    private void beforeAnyUpdate(Owner user) {
-        if (user.getId() == 0) {
-           System.out.println("[USER AUDIT] About to add a user");
+    private void beforeAnyUpdate(Authorities o) {
+        if (o == null) {
+            log.info("[USER AUDIT] About to add a user");
         } else {
-            System.out.println("[USER AUDIT] About to update/delete user: " + user.getId());
+            log.info("[USER AUDIT] About to update/delete user: " );
         }
     }
 
     @PostPersist
     @PostUpdate
     @PostRemove
-    private void afterAnyUpdate(Owner user) {
-        System.out.println("[USER AUDIT] add/update/delete complete for user: " + user.getId());
+    private void afterAnyUpdate(Authorities o) {
+        log.info("[USER AUDIT] add/update/delete complete for user: ");
     }
 
     @PostLoad
-    private void afterLoad(Owner user) {
-        System.out.println("[USER AUDIT] user loaded from database: " + user.getId());
+    private void afterLoad(Authorities o) {
+        log.info("[USER AUDIT] user loaded from database: ");
     }
 
 }

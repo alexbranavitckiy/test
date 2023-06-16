@@ -8,8 +8,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service(" Authorities")
-public class AuthoritiesMapperServiceImpl implements MapperService<Authorities,AuthoritiesDTO> {
+@Service
+public class AuthoritiesMapperServiceImpl implements MapperService<Authorities, AuthoritiesDTO> {
 
     private final ModelMapper modelMapper;
 
@@ -22,10 +22,12 @@ public class AuthoritiesMapperServiceImpl implements MapperService<Authorities,A
     public AuthoritiesDTO toDTO(Authorities authorities) {
         return modelMapper.map(authorities, AuthoritiesDTO.class);
     }
+
     @Override
     public Authorities toEntity(AuthoritiesDTO authoritiesDTO) {
         return modelMapper.map(authoritiesDTO, Authorities.class);
     }
+
     @Override
     public void updateEntity(AuthoritiesDTO authoritiesDTO, Authorities authorities) {
         modelMapper.map(authoritiesDTO, authorities);

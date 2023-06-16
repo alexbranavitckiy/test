@@ -1,6 +1,7 @@
 package org.example.controller;
 
 import org.example.dto.AuthoritiesDTO;
+import org.example.error.NotFoundError;
 import org.example.label.ErrorLabel;
 import org.example.services.AuthoritiesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,9 +38,9 @@ public class AuthoritiesController {
     }
 
 
-    @PostMapping("/update")
-    public ResponseEntity<AuthoritiesDTO> update(@RequestParam Long id, @RequestParam String code) {
-        return new ResponseEntity<>(authoritiesService.update(id,code), HttpStatus.CREATED);
+    @PostMapping("/update")//Lost connection during update
+    public ResponseEntity<AuthoritiesDTO> update(@RequestBody AuthoritiesDTO authoritiesDTO) throws NotFoundError {
+        return new ResponseEntity<>(authoritiesService.updateCodeIfExistId(authoritiesDTO), HttpStatus.CREATED);
     }
 
 }

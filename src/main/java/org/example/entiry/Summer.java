@@ -2,19 +2,22 @@ package org.example.entiry;
 
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 
 @Getter
+@Builder
 @Setter
 @NoArgsConstructor
 @Entity(name = "Summer")
-public class Summer  {
+@AllArgsConstructor
+public class Summer  implements GetId{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "pet_seq",
+            sequenceName = "pet_sequence",
+            initialValue = 2000, allocationSize = 20)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pet_seq")
     private Long id;
 
     @Column(name = "summer")

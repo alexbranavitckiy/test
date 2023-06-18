@@ -14,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity(name = "Authorities")
 @AllArgsConstructor
+@EqualsAndHashCode(of = {"author","id",})
 @EntityListeners(AuditTrailListener.class)
 public class Authorities {
 

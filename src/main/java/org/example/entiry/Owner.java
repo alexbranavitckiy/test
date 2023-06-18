@@ -13,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity(name = "Owner")
 @AllArgsConstructor
+@EqualsAndHashCode(of = {"id","reporters","authorities"})
 public class Owner  {
 
     @Id
@@ -36,7 +37,7 @@ public class Owner  {
     private List<Summer> reporters;
 
     @ToString.Exclude
-    @ManyToMany(mappedBy = "owners")
+    @ManyToMany(mappedBy = "owners",fetch = FetchType.EAGER)
     List<Authorities> authorities;
 
 }

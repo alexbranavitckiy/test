@@ -1,11 +1,11 @@
-package org.example.repository.custom.impl;
+package org.example.repository.customRepository.impl;
 
 import jakarta.persistence.PersistenceContext;
-import org.example.repository.custom.OwnerRepositoryCustom;
+import org.example.repository.customRepository.OwnerRepositoryCustom;
 import org.hibernate.Session;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component
+@Repository
 public class OwnerRepositoryCustomImpl implements OwnerRepositoryCustom {
 
     @PersistenceContext

@@ -41,4 +41,9 @@ public class OwnerController {
         return new ResponseEntity<>(clientService.update(client), HttpStatus.CREATED);
     }
 
+
+    @PostMapping("/test")
+    public ResponseEntity<List<OwnerDTO>> test(@RequestBody OwnerDTO client) {
+        return new ResponseEntity<>(clientService.test(client), HttpStatus.CREATED);
+    }
 }

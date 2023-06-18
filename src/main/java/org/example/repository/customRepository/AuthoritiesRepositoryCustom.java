@@ -1,4 +1,4 @@
-package org.example.repository.custom;
+package org.example.repository.customRepository;
 
 import org.example.entiry.Authorities;
 import org.example.error.NotFoundError;
@@ -12,6 +12,5 @@ public interface AuthoritiesRepositoryCustom {
     Authorities updateCodeAndCloseValueIfExistId(Authorities build) throws NotFoundError;
 
 
-    Authorities updateCodeAndCloseValueIfExistIdQ(Authorities build) throws NotFoundError;
 
 }

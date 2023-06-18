@@ -11,6 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 @Entity(name = "Summer")
 @AllArgsConstructor
+@EqualsAndHashCode(of = {"id","client"})
 public class Summer  implements GetId{
 
     @Id

@@ -12,6 +12,6 @@ public interface OwnerService {
      boolean remove(OwnerDTO client);
      OwnerDTO update(OwnerDTO client);
 
-
+     List<OwnerDTO> test(OwnerDTO client);
 
 }

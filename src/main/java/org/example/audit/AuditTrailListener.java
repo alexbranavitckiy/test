@@ -30,7 +30,7 @@ public class AuditTrailListener {
 
     @PostLoad
     private void afterLoad(Authorities o) {
-        log.info("[USER AUDIT] user loaded from database: ");
+        //   log.info("[USER AUDIT] user loaded from database: ");
     }
 
 }

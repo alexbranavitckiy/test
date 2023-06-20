@@ -11,7 +11,10 @@ public interface OwnerSpecification {
         return (owner, cq, cb) -> cb.equal(owner.get(Owner_.PHONE), PHONE);
     }
 
-    static Specification<Owner> titleContains(String lastName) {
+    static Specification<Owner> ownerLastName(String lastName) {
         return (owner, cq, cb) -> cb.like(owner.get(Owner_.LAST_NAME), "%" + lastName + "%");
     }
+
+
+
 }

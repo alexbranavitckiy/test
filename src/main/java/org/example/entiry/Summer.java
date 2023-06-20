@@ -12,6 +12,24 @@ import lombok.*;
 @Entity(name = "Summer")
 @AllArgsConstructor
 @EqualsAndHashCode(of = {"id","client"})
+@NamedEntityGraphs({
+        @NamedEntityGraph(
+                name = "graph.Summer.client",
+                attributeNodes = @NamedAttributeNode("client")
+        ),
+        @NamedEntityGraph(
+                name = "graph.Summer.client.authorities",
+                attributeNodes = {
+                        @NamedAttributeNode(value = "client", subgraph = "client.authorities")
+                },
+                subgraphs = {
+                        @NamedSubgraph(
+                                name = "client.authorities",
+                                attributeNodes = @NamedAttributeNode(value = "authorities")
+                        )
+                }
+        )
+})
 public class Summer  implements GetId{
 
     @Id
@@ -26,6 +44,7 @@ public class Summer  implements GetId{
 
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
     @JoinColumn(name = "client_id")
     private Owner client;
 

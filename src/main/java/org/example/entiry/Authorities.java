@@ -15,7 +15,12 @@ import java.util.List;
 @Entity(name = "Authorities")
 @AllArgsConstructor
 @EqualsAndHashCode(of = {"author","id",})
-@EntityListeners(AuditTrailListener.class)
+@NamedEntityGraphs({
+        @NamedEntityGraph(
+                name = "graph.Authorities.owners",
+                attributeNodes = @NamedAttributeNode("owners")
+        )
+})
 public class Authorities {
 
     @Id
@@ -33,7 +38,6 @@ public class Authorities {
 
     @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn
-    @ToString.Exclude
     List<Owner> owners;
 
 

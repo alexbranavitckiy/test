@@ -2,25 +2,24 @@ package org.example.entiry;
 
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.example.audit.AuditTrailListener;
 
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @ToString
 @Setter
 @NoArgsConstructor
-@Entity(name = "Owner")
+@Entity(name = "owner")
+@Table(name = "owner")
 @EntityListeners(AuditTrailListener.class)
 public class Owner {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "my_table_generator")
+    private UUID id;
 
     @Column(name = "first_name", length = 200, nullable = false)
     private String firstName;
@@ -31,12 +30,21 @@ public class Owner {
     @Column(name = "phone", length = 200, nullable = false)
     private String phone;
 
+    @Column(name = "close", length = 200, nullable = false)
+    private boolean close;
+
     @ToString.Exclude
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "client",cascade = CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")
     private List<Summer> reporters;
 
     @ToString.Exclude
-    @ManyToMany(mappedBy = "owners",cascade = CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
+    @ManyToMany(mappedBy = "owners")
     List<Authorities> authorities;
+
+    @OneToMany(mappedBy = "owner")
+    List<Message> messages;
+
 
 }

@@ -40,5 +40,4 @@ public class Authorities {
     @JoinColumn
     List<Owner> owners;
 
-
 }

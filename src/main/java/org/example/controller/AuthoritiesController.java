@@ -6,6 +6,7 @@ import org.example.label.ErrorLabel;
 import org.example.services.AuthoritiesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +15,8 @@ import java.util.List;
 
 @ErrorLabel
 @RestController
-@RequestMapping("/authorities")
+@RequestMapping(value = "/authorities",consumes = MediaType.APPLICATION_JSON_VALUE, produces =
+        MediaType.APPLICATION_JSON_VALUE)
 public class AuthoritiesController {
 
 
@@ -22,12 +24,13 @@ public class AuthoritiesController {
     private AuthoritiesService authoritiesService;
 
 
-    @GetMapping("/getAll")
+    @GetMapping(value = "/getAll")
     public ResponseEntity<List<AuthoritiesDTO>> getAll() {
         return new ResponseEntity<>(authoritiesService.getAll(), HttpStatus.OK);
     }
 
-    @PostMapping("add")
+    @PostMapping(value = "add",consumes = MediaType.APPLICATION_JSON_VALUE, produces =
+            MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AuthoritiesDTO> add(@RequestBody String CODE) {
         return new ResponseEntity<>(authoritiesService.add(CODE), HttpStatus.CREATED);
     }
@@ -42,5 +45,8 @@ public class AuthoritiesController {
     public ResponseEntity<AuthoritiesDTO> update(@RequestBody AuthoritiesDTO authoritiesDTO) throws NotFoundError {
         return new ResponseEntity<>(authoritiesService.updateCodeIfExistId(authoritiesDTO), HttpStatus.CREATED);
     }
+
+
+
 
 }

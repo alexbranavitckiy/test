@@ -12,10 +12,6 @@ import java.util.List;
 @Repository
 public interface OwnerRepository extends OwnerRepositoryCustom, JpaRepository<Owner, Long>, JpaSpecificationExecutor<Owner> {
 
-
     List<Owner> findAllBy();
-
-
-
 
 }

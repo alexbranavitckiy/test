@@ -3,13 +3,14 @@ package org.example.repository.customRepository.impl;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.*;
-import jakarta.transaction.Transactional;
 import org.example.entiry.Authorities;
 import org.example.entiry.Authorities_;
 import org.example.error.NotFoundError;
 import org.example.repository.customRepository.AuthoritiesRepositoryCustom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class AuthoritiesRepositoryCustomImpl implements AuthoritiesRepositoryCus
     }
 
     @Override
-    @Transactional
+    @Transactional(propagation = Propagation.MANDATORY)
     public Authorities addAuthorities(Authorities code) {
         entityManager.persist(code);
         return code;

@@ -24,8 +24,9 @@ public class OwnerDTO {
 
     private String phone;
 
+    private String role;
+
     @ToString.Include
     private List<AuthoritiesDTO> authorities;
-
 
 }

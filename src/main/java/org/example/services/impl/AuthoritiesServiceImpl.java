@@ -39,7 +39,6 @@ public class AuthoritiesServiceImpl implements AuthoritiesService {
         return authoritiesRepository.updateStatusOnClose(id, code, false) == 1;
     }
 
-
     @Override
     public AuthoritiesDTO updateCodeIfExistId(AuthoritiesDTO authoritiesDTO) throws NotFoundError {
         return mapperServiceHolder
@@ -47,4 +46,6 @@ public class AuthoritiesServiceImpl implements AuthoritiesService {
                         .updateCodeAndCloseValueIfExistId(mapperServiceHolder
                                 .toEntity(authoritiesDTO)));
     }
+
+
 }

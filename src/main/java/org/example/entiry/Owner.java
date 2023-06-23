@@ -2,6 +2,7 @@ package org.example.entiry;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.List;
@@ -12,10 +13,10 @@ import java.util.Set;
 @Builder
 @Setter
 @NoArgsConstructor
-@Entity(name = "Owner")
+@Entity(name = "owner")
 @AllArgsConstructor
-@EqualsAndHashCode(of = {"id","reporters","authorities"})
-public class Owner  {
+@EqualsAndHashCode(of = {"id", "reporters", "authorities"})
+public class Owner {
 
     @Id
     @SequenceGenerator(name = "pet_seq",
@@ -34,11 +35,14 @@ public class Owner  {
     private String phone;
 
     @ToString.Exclude
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "client")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")
     private List<Summer> reporters;
 
     @ToString.Exclude
-    @ManyToMany(mappedBy = "owners",fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "owners", fetch = FetchType.EAGER)
     List<Authorities> authorities;
+
+    @Column(name = "role")
+    private Role role;
 
 }

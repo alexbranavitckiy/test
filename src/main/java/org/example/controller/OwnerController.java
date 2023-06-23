@@ -5,6 +5,7 @@ import org.example.label.ErrorLabel;
 import org.example.services.OwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +13,8 @@ import java.util.List;
 
 @RestController
 @ErrorLabel
-@RequestMapping("/owner")
+@RequestMapping(value = "/owner",consumes = MediaType.APPLICATION_JSON_VALUE, produces =
+        MediaType.APPLICATION_JSON_VALUE)
 public class OwnerController {
 
     @Autowired
@@ -23,7 +25,6 @@ public class OwnerController {
     public ResponseEntity<List<OwnerDTO>> getAll() {
         return new ResponseEntity<>(clientService.getAll(), HttpStatus.OK);
     }
-
 
     @PostMapping("add")
     public ResponseEntity<OwnerDTO> add(@RequestBody OwnerDTO client) {

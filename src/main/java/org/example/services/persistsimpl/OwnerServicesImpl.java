@@ -1,13 +1,19 @@
 package org.example.services.persistsimpl;
 
 
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import org.example.dto.OwnerDTO;
-import org.example.entiry.Message;
 import org.example.entiry.Owner;
+import org.example.mapper.MapperService;
 import org.example.repository.OwnerRepository;
-import org.example.services.MassageService;
+import org.example.repository.SpecificationCustom.OwnerSpecification;
 import org.example.services.OwnerService;
+import org.example.services.ownerPack.OwnerInit;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,45 +23,54 @@ import java.util.stream.Collectors;
 @Service
 public class OwnerServicesImpl implements OwnerService {
 
-    @Autowired
-    private OwnerRepository clientRepository;
+
+    private final OwnerRepository ownerRepository;
+    private final MapperService<Owner, OwnerDTO> mapperService;
+    @PersistenceContext
+    private EntityManager entityManager;
+    private final CriteriaBuilder criteriaBuilder;
+    private final Map<String, OwnerInit> ownerInitMap;
+
 
     @Autowired
-    private Map<String, MassageService> massageServiceMap;
+    public OwnerServicesImpl(Map<String, OwnerInit> ownerInitMap, OwnerRepository clientRepository, MapperService<Owner, OwnerDTO> mapperService, EntityManager entityManager) {
+        this.ownerRepository = clientRepository;
+        this.ownerInitMap = ownerInitMap;
+        this.mapperService = mapperService;
+        this.entityManager = entityManager;
+        this.criteriaBuilder = entityManager.getCriteriaBuilder();
 
-    @Autowired
-    public OwnerServicesImpl(OwnerRepository clientRepository, Map<String, MassageService> massageServiceMap) {
-        this.clientRepository = clientRepository;
-        this.massageServiceMap = massageServiceMap;
-
-        System.out.println("massageServiceMap");
-        System.out.println(massageServiceMap);
+        System.out.println(ownerInitMap);
 
     }
 
     @Override
-       public boolean setMessage(Message owner) {
-        massageServiceMap.get(owner.getType()).setMessage(owner);
+    public List<OwnerDTO> getAll() {
+        return ownerRepository.findAllBy().stream().map(mapperService::toDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public OwnerDTO add(OwnerDTO client) {
+        return ownerInitMap.containsKey(client.getRole()) ?
+                ownerInitMap.get(client.getRole()).initOwner(client) :
+                ownerInitMap.get("DefaultOwnerService").initOwner(client);
+    }
+
+    @Override
+    public boolean remove(OwnerDTO client) {
         return false;
     }
 
-    public List<OwnerDTO> getAll() {//TODO
-        return clientRepository.findAll().stream().map(OwnerDTO::fromOwnerDTO).collect(Collectors.toList());
+    @Override
+    public OwnerDTO update(OwnerDTO client) {
+        return null;
     }
 
-    public OwnerDTO add(OwnerDTO client) {//TODO
-        return OwnerDTO.fromOwnerDTO(clientRepository.save(client.toOwner()));
+    @Override
+    public List<OwnerDTO> test(OwnerDTO client) {
+        return ownerRepository
+                .findAll(Specification.where(OwnerSpecification.hasOwnerPHONE(client.getPhone()).and(OwnerSpecification.hasOwnerPHONE("")))).stream().map(mapperService::toDTO)
+                .collect(Collectors.toList());
     }
-
-    public boolean remove(OwnerDTO client) {//TODO
-        clientRepository.delete(client.toOwner());
-        return true;
-    }
-
-    public OwnerDTO update(OwnerDTO client) {//TODO
-        clientRepository.save(client.toOwner());
-        return client;
-    }
-
 
 }

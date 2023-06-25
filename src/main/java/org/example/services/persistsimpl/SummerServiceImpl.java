@@ -1,7 +1,11 @@
-package org.example.services.persistsimpl;
+package org.example.services.impl;
 
 import org.example.dto.SummerDTO;
+import org.example.entiry.Owner;
+import org.example.entiry.Summer;
+import org.example.repository.OwnerRepository;
 import org.example.repository.SummerRepository;
+import org.example.services.OwnerService;
 import org.example.services.SummerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,22 +20,23 @@ public class SummerServiceImpl implements SummerService {
     @Autowired
     private SummerRepository summerRepository;
 
-    public List<SummerDTO> getAll() {//TODO
-        return summerRepository.findAll().stream().map(SummerDTO::fromSummerDTO).collect(Collectors.toList());
+    @Override
+    public List<SummerDTO> getAll() {
+        return null;
     }
 
-    public SummerDTO add(SummerDTO client) {//TODO
-        return SummerDTO.fromSummerDTO(summerRepository.save(client.toSummerDTO()));
+    @Override
+    public SummerDTO add(SummerDTO client) {
+        return null;
     }
 
-    public boolean remove(SummerDTO client) {//TODO
-        summerRepository.delete(client.toSummerDTO());
-        return true;
+    @Override
+    public boolean remove(SummerDTO client) {
+        return false;
     }
 
-    public SummerDTO update(SummerDTO client) {//TODO
-        summerRepository.save(client.toSummerDTO());
-        return client;
+    @Override
+    public SummerDTO update(SummerDTO client) {
+        return null;
     }
-
 }

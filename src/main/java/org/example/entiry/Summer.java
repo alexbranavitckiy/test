@@ -1,30 +1,51 @@
 package org.example.entiry;
 
+
 import jakarta.persistence.*;
 import lombok.*;
-import org.example.audit.AuditTrailListener;
-
-import java.util.UUID;
 
 
 @Getter
+@Builder
 @Setter
 @NoArgsConstructor
-@Entity(name = "summer")
-@EntityListeners(AuditTrailListener.class)
-public class Summer  {
+@Entity(name = "Summer")
+@AllArgsConstructor
+@EqualsAndHashCode(of = {"id","client"})
+@NamedEntityGraphs({
+        @NamedEntityGraph(
+                name = "graph.Summer.client",
+                attributeNodes = @NamedAttributeNode("client")
+        ),
+        @NamedEntityGraph(
+                name = "graph.Summer.client.authorities",
+                attributeNodes = {
+                        @NamedAttributeNode(value = "client", subgraph = "client.authorities")
+                },
+                subgraphs = {
+                        @NamedSubgraph(
+                                name = "client.authorities",
+                                attributeNodes = @NamedAttributeNode(value = "authorities")
+                        )
+                }
+        )
+})
+public class Summer  implements GetId{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "my_table_generator")
-    private UUID id;
+    @SequenceGenerator(name = "pet_seq",
+            sequenceName = "pet_sequence",
+            initialValue = 2000, allocationSize = 20)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pet_seq")
+    private Long id;
 
     @Column(name = "summer")
     private String summer;
 
-    @ToString.Exclude
+
     @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
     @JoinColumn(name = "client_id")
-    @EqualsAndHashCode.Exclude
     private Owner client;
 
 }

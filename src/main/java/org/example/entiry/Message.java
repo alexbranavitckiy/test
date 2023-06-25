@@ -1,42 +1,29 @@
 package org.example.entiry;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
-
-import java.util.UUID;
-
-
-
 
 @Getter
-@ToString
 @Setter
-@NoArgsConstructor
-@Entity(name = "message")
-@Table(name = "message")
+@Table(name = "Message")
+@Entity(name = "Message")
+@EqualsAndHashCode(of = {"id",})
 public class Message {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "my_table_generator")
-    private UUID id;
+    @Column(name = "id")
+    private long id;
 
-    @Column(name = "message", length = 200, nullable = false)
+    @Column(name = "message")
     private String message;
 
-    @Column(name = "type", length = 200, nullable = false)
-    private String type;
-
-    @Column(name = "flag", length = 200, nullable = false)
-    private boolean flag;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn
-    @JsonIgnore
-    private Owner owner;
 
 }

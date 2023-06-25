@@ -2,24 +2,28 @@ package org.example.entiry;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.example.audit.AuditTrailListener;
 
 import java.util.List;
-import java.util.UUID;
+import java.util.Set;
 
 @Getter
 @ToString
+@Builder
 @Setter
 @NoArgsConstructor
 @Entity(name = "owner")
-@Table(name = "owner")
-@EntityListeners(AuditTrailListener.class)
+@AllArgsConstructor
+@EqualsAndHashCode(of = {"id", "reporters", "authorities"})
 public class Owner {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "my_table_generator")
-    private UUID id;
+    @SequenceGenerator(name = "pet_seq",
+            sequenceName = "pet_sequence",
+            initialValue = 2000, allocationSize = 20)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pet_seq")
+    private Long id;
 
     @Column(name = "first_name", length = 200, nullable = false)
     private String firstName;
@@ -30,21 +34,15 @@ public class Owner {
     @Column(name = "phone", length = 200, nullable = false)
     private String phone;
 
-    @Column(name = "close", length = 200, nullable = false)
-    private boolean close;
-
     @ToString.Exclude
-    @EqualsAndHashCode.Exclude
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")
     private List<Summer> reporters;
 
     @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    @ManyToMany(mappedBy = "owners")
+    @ManyToMany(mappedBy = "owners", fetch = FetchType.EAGER)
     List<Authorities> authorities;
 
-    @OneToMany(mappedBy = "owner")
-    List<Message> messages;
-
+    @Column(name = "role")
+    private Role role;
 
 }

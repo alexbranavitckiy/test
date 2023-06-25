@@ -6,39 +6,38 @@ import lombok.*;
 import org.example.audit.AuditTrailListener;
 
 import java.util.List;
-import java.util.UUID;
 
 @Getter
-@Setter
-@Data
 @Builder
+@Setter
+@ToString
 @NoArgsConstructor
-@Entity(name = "authorities")
-@Table(name = "authorities")
+@Entity(name = "Authorities")
 @AllArgsConstructor
-@EntityListeners(AuditTrailListener.class)
+@EqualsAndHashCode(of = {"author","id",})
+@NamedEntityGraphs({
+        @NamedEntityGraph(
+                name = "graph.Authorities.owners",
+                attributeNodes = @NamedAttributeNode("owners")
+        )
+})
 public class Authorities {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "my_table_generator")
-    private UUID id;
+    @SequenceGenerator(name = "pet_seq",
+            sequenceName = "pet_sequence",
+            initialValue = 2000, allocationSize = 20)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pet_seq")
+    private Long id;
+
+    @Column(name = "close", columnDefinition = "boolean default false")
+    private boolean close;
 
     @Column(name = "code")
     private String code;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
     List<Owner> owners;
-
-    public Authorities(UUID id, String code) {
-        this.id = id;
-        this.code = code;
-    }
-
-    public Authorities(String code) {
-        this.code = code;
-    }
 
 }

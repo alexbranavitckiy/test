@@ -19,14 +19,4 @@ public class SummerDTO {
 
     private String summer;
 
-    public static SummerDTO fromSummerDTO( Summer authoritiesPerson) {
-        ModelMapper modelMapper = new ModelMapper();
-        return modelMapper.map(authoritiesPerson, SummerDTO.class);
-    }
-
-    public Summer toSummerDTO() {
-        ModelMapper modelMapper = new ModelMapper();
-        return modelMapper.map(this,  Summer.class);
-    }
-
 }

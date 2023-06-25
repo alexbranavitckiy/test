@@ -1,14 +1,17 @@
-package org.example.services.persistsimpl;
+package org.example.services.impl;
 
+import jakarta.transaction.Transactional;
 import org.example.dto.AuthoritiesDTO;
 import org.example.entiry.Authorities;
+import org.example.error.NotFoundError;
+import org.example.mapper.MapperService;
 import org.example.repository.AuthoritiesRepository;
-import org.example.repository.custom.AuthoritiesRepositoryCustom;
 import org.example.services.AuthoritiesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AuthoritiesServiceImpl implements AuthoritiesService {
@@ -17,22 +20,32 @@ public class AuthoritiesServiceImpl implements AuthoritiesService {
     @Autowired
     private AuthoritiesRepository authoritiesRepository;
 
-    public List<Authorities> getAll() {
-        return authoritiesRepository.getAll();
+    @Autowired
+    private MapperService<Authorities, AuthoritiesDTO> mapperServiceHolder;
+
+    @Override
+    public List<AuthoritiesDTO> getAll() {
+        return authoritiesRepository.findAllBy().stream().map(x -> mapperServiceHolder.toDTO(x)).collect(Collectors.toList());
     }
 
-    public AuthoritiesDTO add(AuthoritiesDTO client) {//TODO
-        return AuthoritiesDTO.fromAuthoritiesDTO(authoritiesRepository.save(client.tAuthoritiesDTO()));
+    @Override
+    public AuthoritiesDTO add(String code) {
+        return mapperServiceHolder.toDTO(authoritiesRepository.addAuthorities(Authorities.builder().code(code).build()));
     }
 
-    public boolean remove(AuthoritiesDTO authorities) {//TODO
-        ((AuthoritiesRepositoryCustom) authoritiesRepository).delete(authorities.tAuthoritiesDTO());
-        return true;
+    @Override
+    @Transactional
+    public boolean remove(Long id, String code) {
+        return authoritiesRepository.updateStatusOnClose(id, code, false) == 1;
     }
 
-    public AuthoritiesDTO update(AuthoritiesDTO client) {//TODO
-        authoritiesRepository.save(client.tAuthoritiesDTO());
-        return client;
+    @Override
+    public AuthoritiesDTO updateCodeIfExistId(AuthoritiesDTO authoritiesDTO) throws NotFoundError {
+        return mapperServiceHolder
+                .toDTO(authoritiesRepository
+                        .updateCodeAndCloseValueIfExistId(mapperServiceHolder
+                                .toEntity(authoritiesDTO)));
     }
+
 
 }

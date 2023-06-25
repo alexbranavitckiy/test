@@ -2,10 +2,11 @@ package org.example.controller;
 
 
 import org.example.dto.SummerDTO;
-import org.example.entiry.Summer;
+import org.example.label.ErrorLabel;
 import org.example.services.SummerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +14,9 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/summer")
+@ErrorLabel
+@RequestMapping(value = "/summer", consumes = MediaType.APPLICATION_JSON_VALUE, produces =
+        MediaType.APPLICATION_JSON_VALUE)
 public class SummerController {
 
     @Autowired

@@ -4007,3 +4007,5 @@ insert into authorities_owners (authorities_id, owners_id) values (997, 997);
 insert into authorities_owners (authorities_id, owners_id) values (998, 998);
 insert into authorities_owners (authorities_id, owners_id) values (999, 999);
 insert into authorities_owners (authorities_id, owners_id) values (1000, 1000);
+-- Установка начального значения
+-- SELECT setval('pet_seq', 1000, false);

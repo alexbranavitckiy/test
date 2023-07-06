@@ -2,7 +2,7 @@ package org.example.mapper.impl;
 
 
 import org.example.dto.AuthoritiesDTO;
-import org.example.entiry.Authorities;
+import org.example.entiry.protection.Authorities;
 import org.example.mapper.MapperService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

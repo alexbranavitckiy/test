@@ -1,11 +1,10 @@
 package org.example.controller;
 
-import org.example.dto.OwnerDTO;
+import org.example.dto.UserDTO;
 import org.example.label.ErrorLabel;
-import org.example.services.OwnerService;
+import org.example.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,38 +12,37 @@ import java.util.List;
 
 @RestController
 @ErrorLabel
-@RequestMapping(value = "/owner",consumes = MediaType.APPLICATION_JSON_VALUE, produces =
-        MediaType.APPLICATION_JSON_VALUE)
-public class OwnerController {
+@RequestMapping(value = "/owner")
+public class UserController {
 
     @Autowired
-    private OwnerService clientService;
+    private UserService clientService;
 
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<OwnerDTO>> getAll() {
+    public ResponseEntity<List<UserDTO>> getAll() {
         return new ResponseEntity<>(clientService.getAll(), HttpStatus.OK);
     }
 
     @PostMapping("add")
-    public ResponseEntity<OwnerDTO> add(@RequestBody OwnerDTO client) {
+    public ResponseEntity<UserDTO> add(@RequestBody UserDTO client) {
         return new ResponseEntity<>(clientService.add(client), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/remove")
-    public ResponseEntity<Boolean> remove(@RequestBody OwnerDTO client) {
+    public ResponseEntity<Boolean> remove(@RequestBody UserDTO client) {
         return new ResponseEntity<>(clientService.remove(client), HttpStatus.OK);
     }
 
 
     @PostMapping("/update")
-    public ResponseEntity<OwnerDTO> update(@RequestBody OwnerDTO client) {
+    public ResponseEntity<UserDTO> update(@RequestBody UserDTO client) {
         return new ResponseEntity<>(clientService.update(client), HttpStatus.CREATED);
     }
 
 
     @PostMapping("/test")
-    public ResponseEntity<List<OwnerDTO>> test(@RequestBody OwnerDTO client) {
+    public ResponseEntity<List<UserDTO>> test(@RequestBody UserDTO client) {
         return new ResponseEntity<>(clientService.test(client), HttpStatus.CREATED);
     }
 }

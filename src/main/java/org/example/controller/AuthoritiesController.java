@@ -15,8 +15,7 @@ import java.util.List;
 
 @ErrorLabel
 @RestController
-@RequestMapping(value = "/authorities",consumes = MediaType.APPLICATION_JSON_VALUE, produces =
-        MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/authorities")
 public class AuthoritiesController {
 
 

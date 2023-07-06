@@ -1,15 +1,16 @@
 package org.example.services.ownerPack;
 
 import lombok.extern.slf4j.Slf4j;
-import org.example.dto.OwnerDTO;
+import org.example.dto.UserDTO;
+import org.example.services.UserInit;
 import org.springframework.stereotype.Component;
 
 
 @Slf4j
 @Component("Client")
-public class OwnerClient implements OwnerInit {
+public class UserClient implements UserInit {
     @Override
-    public OwnerDTO initOwner(OwnerDTO ownerDTO) {
+    public UserDTO initOwner(UserDTO ownerDTO) {
         log.info("Client initOwner");
         return ownerDTO;
     }

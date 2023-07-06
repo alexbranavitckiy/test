@@ -1,17 +1,16 @@
-package org.example.services.persistsimpl;
-
+package org.example.services.persistsImpl;
 
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.CriteriaBuilder;
-import org.example.dto.OwnerDTO;
-import org.example.entiry.Owner;
+import org.example.dto.UserDTO;
+import org.example.entiry.UserP;
 import org.example.mapper.MapperService;
-import org.example.repository.OwnerRepository;
-import org.example.repository.SpecificationCustom.OwnerSpecification;
-import org.example.services.OwnerService;
-import org.example.services.ownerPack.OwnerInit;
+import org.example.repository.UserRepository;
+import org.example.repository.SpecificationCustom.PeopleSpecification;
+import org.example.services.UserService;
+import org.example.services.UserInit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -21,19 +20,20 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class OwnerServicesImpl implements OwnerService {
+public class UserServicesImpl implements UserService {
 
 
-    private final OwnerRepository ownerRepository;
-    private final MapperService<Owner, OwnerDTO> mapperService;
+    private final UserRepository ownerRepository;
+    private final MapperService<UserP, UserDTO> mapperService;
     @PersistenceContext
     private EntityManager entityManager;
     private final CriteriaBuilder criteriaBuilder;
-    private final Map<String, OwnerInit> ownerInitMap;
+    private final Map<String, UserInit> ownerInitMap;
 
 
     @Autowired
-    public OwnerServicesImpl(Map<String, OwnerInit> ownerInitMap, OwnerRepository clientRepository, MapperService<Owner, OwnerDTO> mapperService, EntityManager entityManager) {
+    public UserServicesImpl(Map<String, UserInit> ownerInitMap, UserRepository clientRepository, MapperService<UserP,
+            UserDTO> mapperService, EntityManager entityManager) {
         this.ownerRepository = clientRepository;
         this.ownerInitMap = ownerInitMap;
         this.mapperService = mapperService;
@@ -45,31 +45,34 @@ public class OwnerServicesImpl implements OwnerService {
     }
 
     @Override
-    public List<OwnerDTO> getAll() {
+    public List<UserDTO> getAll() {
         return ownerRepository.findAllBy().stream().map(mapperService::toDTO).collect(Collectors.toList());
     }
 
     @Override
-    public OwnerDTO add(OwnerDTO client) {
+    public UserDTO add(UserDTO client) {
         return ownerInitMap.containsKey(client.getRole()) ?
                 ownerInitMap.get(client.getRole()).initOwner(client) :
                 ownerInitMap.get("DefaultOwnerService").initOwner(client);
     }
 
     @Override
-    public boolean remove(OwnerDTO client) {
+    public boolean remove(UserDTO client) {
         return false;
     }
 
     @Override
-    public OwnerDTO update(OwnerDTO client) {
+    public UserDTO update(UserDTO client) {
         return null;
     }
 
     @Override
-    public List<OwnerDTO> test(OwnerDTO client) {
+    public List<UserDTO> test(UserDTO client) {
         return ownerRepository
-                .findAll(Specification.where(OwnerSpecification.hasOwnerPHONE(client.getPhone()).and(OwnerSpecification.hasOwnerPHONE("")))).stream().map(mapperService::toDTO)
+                .findAll(Specification.where(PeopleSpecification
+                        .hasOwnerPHONE(client.getPhone())
+                        .and(PeopleSpecification.hasOwnerPHONE(""))))
+                .stream().map(mapperService::toDTO)
                 .collect(Collectors.toList());
     }
 

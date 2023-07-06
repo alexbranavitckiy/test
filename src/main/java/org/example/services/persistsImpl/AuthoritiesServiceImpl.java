@@ -1,8 +1,8 @@
-package org.example.services.impl;
+package org.example.services.persistsImpl;
 
 import jakarta.transaction.Transactional;
 import org.example.dto.AuthoritiesDTO;
-import org.example.entiry.Authorities;
+import org.example.entiry.protection.Authorities;
 import org.example.error.NotFoundError;
 import org.example.mapper.MapperService;
 import org.example.repository.AuthoritiesRepository;

@@ -2,21 +2,19 @@ package org.example.entiry;
 
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.example.entiry.protection.Authorities;
 
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @ToString
 @Builder
 @Setter
 @NoArgsConstructor
-@Entity(name = "owner")
 @AllArgsConstructor
-@EqualsAndHashCode(of = {"id", "reporters", "authorities"})
-public class Owner {
+@Entity(name = "UserP")
+public class UserP {
 
     @Id
     @SequenceGenerator(name = "pet_seq",
@@ -34,15 +32,11 @@ public class Owner {
     @Column(name = "phone", length = 200, nullable = false)
     private String phone;
 
-    @ToString.Exclude
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")
-    private List<Summer> reporters;
+    @OneToMany(mappedBy ="user")
+    private List<OrderP> orders;
 
     @ToString.Exclude
-    @ManyToMany(mappedBy = "owners", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
     List<Authorities> authorities;
-
-    @Column(name = "role")
-    private Role role;
 
 }

@@ -1,9 +1,9 @@
-package org.example.entiry;
+package org.example.entiry.protection;
 
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.example.audit.AuditTrailListener;
+import org.example.entiry.UserP;
 
 import java.util.List;
 
@@ -14,11 +14,11 @@ import java.util.List;
 @NoArgsConstructor
 @Entity(name = "Authorities")
 @AllArgsConstructor
-@EqualsAndHashCode(of = {"author","id",})
+@EqualsAndHashCode(of = {"author", "id",})
 @NamedEntityGraphs({
         @NamedEntityGraph(
-                name = "graph.Authorities.owners",
-                attributeNodes = @NamedAttributeNode("owners")
+                name = "graph.Authorities.users",
+                attributeNodes = @NamedAttributeNode("users")
         )
 })
 public class Authorities {
@@ -36,8 +36,11 @@ public class Authorities {
     @Column(name = "code")
     private String code;
 
-    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinColumn
-    List<Owner> owners;
+    @ToString.Exclude
+    List<UserP> users;
 
+    @Column(name = "role")
+    private Role role;
 }

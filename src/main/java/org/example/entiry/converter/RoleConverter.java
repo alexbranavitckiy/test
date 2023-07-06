@@ -1,7 +1,8 @@
-package org.example.entiry;
+package org.example.entiry.converter;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
+import org.example.entiry.protection.Role;
 
 import java.util.stream.Stream;
 

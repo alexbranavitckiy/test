@@ -3,8 +3,7 @@ package org.example.repository.customRepository.impl;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.*;
-import org.example.entiry.Authorities;
-import org.example.entiry.Authorities_;
+import org.example.entiry.protection.Authorities;
 import org.example.error.NotFoundError;
 import org.example.repository.customRepository.AuthoritiesRepositoryCustom;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +50,7 @@ public class AuthoritiesRepositoryCustomImpl implements AuthoritiesRepositoryCus
 
         cq.select(root);
 
-        cq.where(cb.equal(root.get(Authorities_.ID),
+        cq.where(cb.equal(root.get("ID"),
                 build.getId()));
 
         cq.orderBy(cb.desc(root.get("id")));

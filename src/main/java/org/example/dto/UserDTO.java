@@ -4,8 +4,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.example.entiry.Owner;
-import org.modelmapper.ModelMapper;
 
 import java.util.List;
 
@@ -14,7 +12,7 @@ import java.util.List;
 @ToString
 @Setter
 @NoArgsConstructor
-public class OwnerDTO {
+public class UserDTO {
 
     private Long id;
 

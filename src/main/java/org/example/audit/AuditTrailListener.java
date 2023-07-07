@@ -2,7 +2,7 @@ package org.example.audit;
 
 import jakarta.persistence.*;
 import lombok.extern.slf4j.Slf4j;
-import org.example.entiry.Authorities;
+import org.example.entiry.protection.Authorities;
 import org.springframework.stereotype.Component;
 
 @Slf4j

@@ -1,14 +1,14 @@
 package org.example.mapper.impl;
 
 
-import org.example.dto.OwnerDTO;
-import org.example.entiry.Owner;
+import org.example.dto.UserDTO;
+import org.example.entiry.UserP;
 import org.example.mapper.MapperService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 @Service
-public class OwnerModelMapperServiceImpl implements MapperService<Owner, OwnerDTO> {
+public class OwnerModelMapperServiceImpl implements MapperService<UserP, UserDTO> {
 
     private final ModelMapper modelMapper;
 
@@ -16,16 +16,16 @@ public class OwnerModelMapperServiceImpl implements MapperService<Owner, OwnerDT
         this.modelMapper = new ModelMapper();
     }
 
-    public OwnerDTO toDTO(Owner owner) {
-        return modelMapper.map(owner, OwnerDTO.class);
+    public UserDTO toDTO(UserP owner) {
+        return modelMapper.map(owner, UserDTO.class);
     }
 
-    public Owner toEntity(OwnerDTO ownerDTO) {
-        return modelMapper.map(ownerDTO, Owner.class);
+    public UserP toEntity(UserDTO ownerDTO) {
+        return modelMapper.map(ownerDTO, UserP.class);
     }
 
     @Override
-    public void updateEntity(OwnerDTO ownerDTO, Owner owner) {
+    public void updateEntity(UserDTO ownerDTO, UserP owner) {
         modelMapper.map(ownerDTO, owner);
     }
 }

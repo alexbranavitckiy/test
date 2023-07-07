@@ -1,4 +1,4 @@
 package org.example.repository.customRepository;
 
-public interface SummerRepositoryCustom {
+public interface UserRepositoryCustom {
 }

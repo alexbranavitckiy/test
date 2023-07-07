@@ -1,4 +1,4 @@
-package org.example.entiry;
+package org.example.entiry.protection;
 
 public enum Role {
 

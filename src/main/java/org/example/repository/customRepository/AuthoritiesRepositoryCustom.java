@@ -1,6 +1,6 @@
 package org.example.repository.customRepository;
 
-import org.example.entiry.Authorities;
+import org.example.entiry.protection.Authorities;
 import org.example.error.NotFoundError;
 
 public interface AuthoritiesRepositoryCustom {

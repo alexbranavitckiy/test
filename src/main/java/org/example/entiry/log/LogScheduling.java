@@ -1,4 +1,4 @@
-package org.example.entiry;
+package org.example.entiry.log;
 
 
 import jakarta.persistence.Column;
@@ -39,16 +39,5 @@ public class LogScheduling {
     @Column(name = "message")
     private String message;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        LogScheduling that = (LogScheduling) o;
-        return getId() != null && Objects.equals(getId(), that.getId());
-    }
 
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
 }

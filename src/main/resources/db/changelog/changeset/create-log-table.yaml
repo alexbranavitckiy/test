@@ -1,23 +1,35 @@
 databaseChangeLog:
   - changeSet:
-     id: create-log-table
-     author: Alex
-     changes:
-      - createTable:
-          tableName: logAuthorities
-          columns:
-            - column:
-                name: id
-                type: bigint
-                autoIncrement: true
-                constraints:
-                  primaryKey: true
-                  nullable: false
-            - column:
-                name: summer
-                type: varchar(200)
-                constraints:
-                  nullable: false
+      id: create-log-table
+      author: Alex
+      changes:
+        - createTable:
+            tableName: logAuthorities
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: summer
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: update-log-table
+      author: Alex
+      changes:
+        - addColumn:
+            tableName: logAuthorities
+            columns:
+              - column:
+                  name: id_entity
+                  type: bigint
+
+
 
 
 

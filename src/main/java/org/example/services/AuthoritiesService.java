@@ -1,18 +1,20 @@
 package org.example.services;
 
 import org.example.dto.AuthoritiesDTO;
-import org.example.entiry.Authorities;
-import org.example.entiry.Owner;
+import org.example.entiry.protection.Authorities;
 import org.example.error.NotFoundError;
 
 import java.util.List;
 
 public interface AuthoritiesService {
 
-    List<AuthoritiesDTO> getAll() ;
-    AuthoritiesDTO add(String code);
-    boolean remove(Long id,String code);
-    AuthoritiesDTO updateCodeIfExistId(AuthoritiesDTO authoritiesDTO) throws NotFoundError;
+    List<Authorities> getAll();
+
+    Authorities add(String code);
+
+    void remove(Long id, String code);
+
+    Authorities update(AuthoritiesDTO authoritiesDTO) throws NotFoundError;
 
 
 }

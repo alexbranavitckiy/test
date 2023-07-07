@@ -10,4 +10,5 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
 
     @PersistenceContext
     private Session entityManager;
+
 }

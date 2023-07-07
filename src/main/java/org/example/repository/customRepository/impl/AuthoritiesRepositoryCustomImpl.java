@@ -27,7 +27,6 @@ public class AuthoritiesRepositoryCustomImpl implements AuthoritiesRepositoryCus
         this.cb = entityManager.getCriteriaBuilder();
     }
 
-
     @Override
     public Authorities update(Authorities entity) {
         return null;

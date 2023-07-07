@@ -1,6 +1,10 @@
 package org.example.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.example.dto.AuthoritiesDTO;
+import org.example.entiry.protection.Authorities;
 import org.example.error.NotFoundError;
 import org.example.label.ErrorLabel;
 import org.example.services.AuthoritiesService;
@@ -13,39 +17,37 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
-@ErrorLabel
+@Slf4j
 @RestController
-@RequestMapping(value = "/authorities")
+@RequestMapping("/authorities")
+@Api(tags = "Authorities", description = "API для работы с Authorities")
 public class AuthoritiesController {
-
 
     @Autowired
     private AuthoritiesService authoritiesService;
 
-
-    @GetMapping(value = "/getAll")
-    public ResponseEntity<List<AuthoritiesDTO>> getAll() {
+    @ApiOperation(value = "Получить все Authorities", notes = "Возвращает список всех Authorities")
+    @GetMapping("/getAll")
+    public ResponseEntity<List<Authorities>> getAll() {
         return new ResponseEntity<>(authoritiesService.getAll(), HttpStatus.OK);
     }
 
-    @PostMapping(value = "add",consumes = MediaType.APPLICATION_JSON_VALUE, produces =
-            MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AuthoritiesDTO> add(@RequestBody String CODE) {
-        return new ResponseEntity<>(authoritiesService.add(CODE), HttpStatus.CREATED);
+    @ApiOperation(value = "Добавить Authorities", notes = "Добавляет новый Authorities")
+    @PostMapping(value = "/add", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Authorities> add(@RequestBody String code) {
+        return new ResponseEntity<>(authoritiesService.add(code), HttpStatus.CREATED);
     }
 
+    @ApiOperation(value = "Удалить Authorities", notes = "Удаляет Authorities по заданному id и code")
     @DeleteMapping("/remove")
-    public ResponseEntity<Boolean> remove(@RequestParam Long id,String code) {
-        return new ResponseEntity<>(authoritiesService.remove(id, code), HttpStatus.OK);
+    public ResponseEntity<Void> remove(@RequestParam Long id, @RequestParam String code) {
+        authoritiesService.remove(id, code);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
-    @PostMapping("/update")//Lost connection during update
-    public ResponseEntity<AuthoritiesDTO> update(@RequestBody AuthoritiesDTO authoritiesDTO) throws NotFoundError {
-        return new ResponseEntity<>(authoritiesService.updateCodeIfExistId(authoritiesDTO), HttpStatus.CREATED);
+    @ApiOperation(value = "Обновить Authorities", notes = "Обновляет существующий Authorities")
+    @PostMapping("/update")
+    public ResponseEntity<Authorities> update(@RequestBody AuthoritiesDTO authoritiesDTO) throws NotFoundError {
+        return new ResponseEntity<>(authoritiesService.update(authoritiesDTO), HttpStatus.CREATED);
     }
-
-
-
-
 }

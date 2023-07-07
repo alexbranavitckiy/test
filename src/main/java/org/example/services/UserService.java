@@ -1,19 +1,19 @@
 package org.example.services;
 
 import org.example.dto.UserDTO;
+import org.example.entiry.UserP;
 
 import java.util.List;
 
 public interface UserService {
 
-    List<UserDTO> getAll();
-
     UserDTO add(UserDTO client);
 
-    boolean remove(UserDTO client);
+    List<UserP> getAllUsers(int page, int size, String sortBy, String search);
 
-    UserDTO update(UserDTO client);
+    UserP createUser(UserP user);
 
-    List<UserDTO> test(UserDTO client);
+    UserP deleteUser(long id);
 
+    UserP updateUser(long id, UserP user);
 }

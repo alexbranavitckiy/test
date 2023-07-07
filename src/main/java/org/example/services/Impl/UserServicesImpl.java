@@ -1,4 +1,4 @@
-package org.example.services.persistsImpl;
+package org.example.services.Impl;
 
 
 import jakarta.persistence.EntityManager;
@@ -45,35 +45,46 @@ public class UserServicesImpl implements UserService {
     }
 
     @Override
-    public List<UserDTO> getAll() {
-        return ownerRepository.findAllBy().stream().map(mapperService::toDTO).collect(Collectors.toList());
-    }
-
-    @Override
     public UserDTO add(UserDTO client) {
-        return ownerInitMap.containsKey(client.getRole()) ?
-                ownerInitMap.get(client.getRole()).initOwner(client) :
-                ownerInitMap.get("DefaultOwnerService").initOwner(client);
-    }
-
-    @Override
-    public boolean remove(UserDTO client) {
-        return false;
-    }
-
-    @Override
-    public UserDTO update(UserDTO client) {
         return null;
     }
 
     @Override
-    public List<UserDTO> test(UserDTO client) {
-        return ownerRepository
-                .findAll(Specification.where(PeopleSpecification
-                        .hasOwnerPHONE(client.getPhone())
-                        .and(PeopleSpecification.hasOwnerPHONE(""))))
-                .stream().map(mapperService::toDTO)
-                .collect(Collectors.toList());
+    public List<UserP> getAllUsers(int page, int size, String sortBy, String search) {
+        return null;
     }
+
+    @Override
+    public UserP createUser(UserP user) {
+        return null;
+    }
+
+    @Override
+    public UserP deleteUser(long id) {
+        return null;
+    }
+
+    @Override
+    public UserP updateUser(long id, UserP user) {
+        return null;
+    }
+
+//    @Override
+//    public UserDTO add(UserDTO client) {
+//        return ownerInitMap.containsKey(client.getRole()) ?
+//                ownerInitMap.get(client.getRole()).initOwner(client) :
+//                ownerInitMap.get("DefaultOwnerService").initOwner(client);
+//    }
+
+
+//    @Override
+//    public List<UserDTO> test(UserDTO client) {
+//        return ownerRepository
+//                .findAll(Specification.where(PeopleSpecification
+//                        .hasOwnerPHONE(client.getPhone())
+//                        .and(PeopleSpecification.hasOwnerPHONE(""))))
+//                .stream().map(mapperService::toDTO)
+//                .collect(Collectors.toList());
+//    }
 
 }

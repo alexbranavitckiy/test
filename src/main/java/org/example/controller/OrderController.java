@@ -3,7 +3,10 @@ package org.example.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.example.controller.api.APIGetAll;
 import org.example.entiry.OrderP;
+import org.example.entiry.Product;
+import org.example.entiry.UserP;
 import org.example.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,7 +24,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/order")
 @Api(tags = "Заказы", description = "API для работы с заказами")
-public class OrderController {
+public class OrderController  implements APIGetAll<OrderP> {
 
     private final OrderService orderService;
 
@@ -30,15 +33,12 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Получить список заказов", notes = "Возвращает список всех заказов")
-    public ResponseEntity<List<OrderP>> getAllOrders(
-            @RequestParam(defaultValue = "0", required = false) int page,
-            @RequestParam(defaultValue = "10", required = false) int size,
-            @RequestParam(defaultValue = "id", required = false) String sortBy,
-            @RequestParam(defaultValue = " ", required = false) String search) {
-        log.info("Получить список заказов");
-        return ResponseEntity.ok(orderService.getAllOrders(page, size, sortBy, search));
+
+
+    @GetMapping()
+    public ResponseEntity<List<OrderP>> getAll(int offset, int limit, String sortBy, String search) {
+        log.info("Получить список продуктов");
+        return ResponseEntity.ok(orderService.getAllOrders(offset, limit, sortBy, search));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

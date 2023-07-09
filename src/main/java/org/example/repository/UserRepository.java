@@ -12,6 +12,5 @@ import java.util.List;
 @Repository
 public interface UserRepository extends UserRepositoryCustom, JpaRepository<UserP, Long>, JpaSpecificationExecutor<UserP> {
 
-    List<UserP> findAllBy();
 
 }

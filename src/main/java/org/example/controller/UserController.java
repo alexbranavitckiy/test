@@ -3,6 +3,8 @@ package org.example.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.example.controller.api.APIGetAll;
+import org.example.entiry.Product;
 import org.example.entiry.UserP;
 import org.example.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,7 @@ import java.util.List;
 @Api(tags = "Пользователи", description = "API для работы с пользователями")
 @RestController
 @RequestMapping("/user")
-public class UserController {
+public class UserController implements APIGetAll<UserP> {
 
     private final UserService userService;
 
@@ -30,15 +32,10 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Получить список пользователей", notes = "Возвращает список всех пользователей")
-    public ResponseEntity<List<UserP>> getAllUsers(
-            @RequestParam(defaultValue = "0", required = false) int page,
-            @RequestParam(defaultValue = "10", required = false) int size,
-            @RequestParam(defaultValue = "id", required = false) String sortBy,
-            @RequestParam(defaultValue = "search", required = false) String search) {
+    @GetMapping()
+    public ResponseEntity<List<UserP>> getAll(int offset,int limit, String sortBy,  String search) {
         log.info("Получить список пользователей");
-        return ResponseEntity.ok(userService.getAllUsers(page, size, sortBy, search));
+        return ResponseEntity.ok(userService.getAllUsers(offset, limit, sortBy, search));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

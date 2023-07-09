@@ -13,11 +13,11 @@ import java.util.List;
 @Repository
 public interface AuthoritiesRepository extends AuthoritiesRepositoryCustom, JpaRepository<Authorities, Long> {
 
-    List<Authorities> findAllBy();
-
-    @Modifying
-    @Query(value = "update Authorities set close = :newValue where id = :id   and code = :code", nativeQuery = false)
-    int updateStatusOnClose(@Param("id") Long id, @Param("code") String code, @Param("newValue") boolean newValue);
+//    List<Authorities> findAllBy();
+//
+//    @Modifying
+//    @Query(value = "update Authorities set close = :newValue where id = :id   and code = :code", nativeQuery = false)
+//    int updateStatusOnClose(@Param("id") Long id, @Param("code") String code, @Param("newValue") boolean newValue);
 
 
 

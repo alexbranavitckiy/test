@@ -29,10 +29,10 @@ public class OrderP {
     @JoinColumn(name = "owner_id", nullable = false)
     private UserP user;
 
-    @Column(nullable = false)
+    @Column(nullable = false,name = "order_date")
     private LocalDateTime orderDate;
 
-    @Column(nullable = false)
+    @Column(nullable = false,name = "total_amount")
     private BigDecimal totalAmount;
 
     @OneToMany(mappedBy = "orderP")

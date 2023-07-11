@@ -33,10 +33,10 @@ public class OrderPItems {
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
-    @Column(nullable = false)
+    @Column(nullable = false,name = "quantity")
     private int quantity;
 
-    @Column(nullable = false)
+    @Column(nullable = false,name = "unit_price")
     private BigDecimal unitPrice;
 
 

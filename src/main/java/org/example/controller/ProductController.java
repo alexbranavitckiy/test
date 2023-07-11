@@ -4,7 +4,9 @@ package org.example.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.example.controller.api.APIGetAll;
 import org.example.entiry.Product;
+import org.example.entiry.UserP;
 import org.example.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,7 +22,7 @@ import java.util.List;
 @Api(tags = "Продукты", description = "API для работы с продуктами")
 @RestController
 @RequestMapping("/product")
-public class ProductController {
+public class ProductController implements APIGetAll<Product> {
 
     private final ProductService productService;
 
@@ -29,16 +31,13 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping(path = "/page", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Получить список продуктов", notes = "Возвращает список всех продуктов")
-    public ResponseEntity<List<Product>> getProductsByPageAndSort(
-            @RequestParam(defaultValue = "0", required = false) int offset,
-            @RequestParam(defaultValue = "10", required = false) int limit,
-            @RequestParam(required = false) String search,
-            @RequestParam(required = false) String paramsName) {
+
+    @GetMapping()
+    public ResponseEntity<List<Product>> getAll(int offset, int limit, String sortBy, String search) {
         log.info("Получить список продуктов");
-        return ResponseEntity.ok(productService.getAllProduct(offset, limit, paramsName, search));
+        return ResponseEntity.ok(productService.getAllProduct(offset, limit, sortBy, search));
     }
+
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Добавление нового продукта")

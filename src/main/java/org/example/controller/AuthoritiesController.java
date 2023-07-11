@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.dto.AuthoritiesDTO;
 import org.example.entiry.protection.Authorities;
 import org.example.error.NotFoundError;
-import org.example.label.ErrorLabel;
 import org.example.services.AuthoritiesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

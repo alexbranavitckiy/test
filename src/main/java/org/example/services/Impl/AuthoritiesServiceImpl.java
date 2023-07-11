@@ -15,11 +15,14 @@ import java.util.List;
 public class AuthoritiesServiceImpl implements AuthoritiesService {
 
 
-    @Autowired
     private AuthoritiesRepository authoritiesRepository;
+    private MapperService<Authorities, AuthoritiesDTO> mapperService;
 
     @Autowired
-    private MapperService<Authorities, AuthoritiesDTO> mapperServiceHolder;
+    public AuthoritiesServiceImpl(AuthoritiesRepository authoritiesRepository, MapperService<Authorities, AuthoritiesDTO> mapperService) {
+        this.authoritiesRepository = authoritiesRepository;
+        this.mapperService = mapperService;
+    }
 
     @Override
     public List<Authorities> getAll() {

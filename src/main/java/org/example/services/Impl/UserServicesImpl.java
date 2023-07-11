@@ -1,9 +1,12 @@
 package org.example.services.Impl;
 
 
+import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 import org.example.dto.UserDTO;
 import org.example.entiry.UserP;
 import org.example.mapper.MapperService;
@@ -27,10 +30,15 @@ public class UserServicesImpl implements UserService {
     private final MapperService<UserP, UserDTO> mapperService;
     @PersistenceContext
     private EntityManager entityManager;
+
+    private  CriteriaBuilder cb;
     private final CriteriaBuilder criteriaBuilder;
     private final Map<String, UserInit> ownerInitMap;
 
-
+    @PostConstruct
+    private void initializeCriteriaBuilder() {
+        cb = entityManager.getCriteriaBuilder();
+    }
     @Autowired
     public UserServicesImpl(Map<String, UserInit> ownerInitMap, UserRepository clientRepository, MapperService<UserP,
             UserDTO> mapperService, EntityManager entityManager) {
@@ -39,9 +47,6 @@ public class UserServicesImpl implements UserService {
         this.mapperService = mapperService;
         this.entityManager = entityManager;
         this.criteriaBuilder = entityManager.getCriteriaBuilder();
-
-        System.out.println(ownerInitMap);
-
     }
 
     @Override
@@ -50,8 +55,13 @@ public class UserServicesImpl implements UserService {
     }
 
     @Override
-    public List<UserP> getAllUsers(int page, int size, String sortBy, String search) {
-        return null;
+    public List<UserP> getAllUsers(int offset, int limit, String sortBy, String search) {
+
+        CriteriaQuery<UserP> cq = cb.createQuery(UserP.class);
+        Root<UserP> root = cq.from(UserP.class);
+        cq.select(root).orderBy(cb.asc(root.get(search)));
+        return entityManager.createQuery(cq).setFirstResult(offset).setMaxResults(limit).getResultList();
+
     }
 
     @Override
@@ -69,22 +79,5 @@ public class UserServicesImpl implements UserService {
         return null;
     }
 
-//    @Override
-//    public UserDTO add(UserDTO client) {
-//        return ownerInitMap.containsKey(client.getRole()) ?
-//                ownerInitMap.get(client.getRole()).initOwner(client) :
-//                ownerInitMap.get("DefaultOwnerService").initOwner(client);
-//    }
-
-
-//    @Override
-//    public List<UserDTO> test(UserDTO client) {
-//        return ownerRepository
-//                .findAll(Specification.where(PeopleSpecification
-//                        .hasOwnerPHONE(client.getPhone())
-//                        .and(PeopleSpecification.hasOwnerPHONE(""))))
-//                .stream().map(mapperService::toDTO)
-//                .collect(Collectors.toList());
-//    }
 
 }

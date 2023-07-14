@@ -8,15 +8,12 @@ import org.example.entiry.Product;
 import org.example.entiry.UserP;
 import org.example.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 @Slf4j
@@ -42,8 +39,7 @@ public class UserController implements APIGetAll<UserP> {
     @ApiOperation(value = "Добавление нового пользователя")
     public ResponseEntity<UserP> createUser(@RequestBody UserP user) {
         log.info("Добавление нового пользователя");
-        UserP createdUser = userService.createUser(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUser(user));
     }
 
     @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

@@ -43,4 +43,5 @@ public class Authorities {
 
     @Column(name = "role")
     private Role role;
+
 }

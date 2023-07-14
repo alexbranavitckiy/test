@@ -33,17 +33,17 @@ public class UserServicesImpl implements UserService {
 
     private  CriteriaBuilder cb;
     private final CriteriaBuilder criteriaBuilder;
-    private final Map<String, UserInit> ownerInitMap;
+    private final Map<String, UserInit> userInitMap;
 
     @PostConstruct
     private void initializeCriteriaBuilder() {
         cb = entityManager.getCriteriaBuilder();
     }
     @Autowired
-    public UserServicesImpl(Map<String, UserInit> ownerInitMap, UserRepository clientRepository, MapperService<UserP,
+    public UserServicesImpl(Map<String, UserInit> userInitMap, UserRepository clientRepository, MapperService<UserP,
             UserDTO> mapperService, EntityManager entityManager) {
         this.ownerRepository = clientRepository;
-        this.ownerInitMap = ownerInitMap;
+        this.userInitMap = userInitMap;
         this.mapperService = mapperService;
         this.entityManager = entityManager;
         this.criteriaBuilder = entityManager.getCriteriaBuilder();
@@ -66,6 +66,7 @@ public class UserServicesImpl implements UserService {
 
     @Override
     public UserP createUser(UserP user) {
+
         return null;
     }
 

@@ -20,4 +20,5 @@ public interface APIGetAll<T> {
             @RequestParam(defaultValue = " ", required = false) String search) ;
 
 
+
 }

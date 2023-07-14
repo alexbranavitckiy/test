@@ -33,8 +33,6 @@ public class OrderController  implements APIGetAll<OrderP> {
         this.orderService = orderService;
     }
 
-
-
     @GetMapping()
     public ResponseEntity<List<OrderP>> getAll(int offset, int limit, String sortBy, String search) {
         log.info("Получить список продуктов");

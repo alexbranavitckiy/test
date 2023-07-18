@@ -35,9 +35,11 @@ public class OrderP {
     @Column(nullable = false,name = "total_amount")
     private BigDecimal totalAmount;
 
+    @OrderBy("unitPrice ASC")
     @OneToMany(mappedBy = "orderP")
     List<OrderPItems> orderPItems;
 
+    @OrderBy("isOpen ASC")
     @ManyToMany(mappedBy ="orderPList" )
     private List<Product> products;
 

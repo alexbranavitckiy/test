@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Slf4j
-@Api(tags = "Пользователи", description = "API для работы с пользователями")
+@Api(tags = "Пользователи", produces = "API для работы с пользователями")
 @RestController
 @RequestMapping("/user")
 public class UserController implements APIGetAll<UserP> {

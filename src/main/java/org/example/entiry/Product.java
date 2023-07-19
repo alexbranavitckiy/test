@@ -39,6 +39,7 @@ public class Product {
     private int quantity;
 
     @ManyToMany
+    @ToString.Exclude
     @JoinColumn(name = "products")
     private List<OrderP> orderPList;
 

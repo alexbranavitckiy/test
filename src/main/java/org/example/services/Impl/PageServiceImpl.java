@@ -19,7 +19,7 @@ public class PageServiceImpl<T> implements PageService<T> {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public List<T> getAllT(Class<T> entityClass, int offset, int limit, List<String> paramsName, List<Specification<T>> specifications) {
+    public List<T> getAllT(Class<T> entityClass, int offset, int limit, List<String> paramsName, List<Specification<T>> specifications, List<Selection<?>> selections) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<T> cq = cb.createQuery(entityClass);
         Root<T> root = cq.from(entityClass);
@@ -52,6 +52,11 @@ public class PageServiceImpl<T> implements PageService<T> {
             orders.add(cb.asc(root.get("id"))); // Сортировка по умолчанию, если paramsName пуст или null
         }
         cq.orderBy(orders);
+
+        // Добавление проекции данных
+        if (selections != null && !selections.isEmpty()) {
+            cq.multiselect(selections);
+        }
 
         TypedQuery<T> query = entityManager.createQuery(cq);
         query.setFirstResult(offset);

@@ -38,7 +38,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getAllProduct(int offset, int limit, String sort, String search) {
-        return pageService.getAllT(Product.class, offset, limit, List.of(sort), List.of());
+        return pageService.getAllT(Product.class, offset, limit, List.of(sort), List.of(), List.of());
     }
 
     @Override
